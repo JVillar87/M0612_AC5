@@ -43,10 +43,10 @@ let llistaSplice = ["A", "B", "C", "D", "E"];
 console.log("5. splice (eliminar 2 a l'índex 1) -> retorn:", llistaSplice.splice(1), "| Llista final:", llistaSplice);
 
 // 6. Insereix "X" i "Y" a l'índex 2 sense eliminar res: mostra el retorn I l'array resultant
-console.log("6. splice (inserir sense esborrar) -> retorn:", llistaSplice.splice(2,0, "X", "Y"), "| Llista final:", llistaSplice);
+console.log("6. splice (inserir sense esborrar) -> retorn:", llistaSplice.splice(2, 0, "X", "Y"), "| Llista final:", llistaSplice);
 
 // 7. Substitueix l'element de l'índex 0 pel valor "Z": mostra el retorn I l'array resultant
-console.log("7. splice (substituir 1 element) -> retorn:", llistaSplice.splice(0,1,"Z"), "| Llista final:", llistaSplice);
+console.log("7. splice (substituir 1 element) -> retorn:", llistaSplice.splice(0, 1, "Z"), "| Llista final:", llistaSplice);
 
 
 
@@ -59,34 +59,35 @@ let base = [30, 10, 20, 50, 40];
 
 // --- A. Ordenació ---
 // 8a. Mutant: Ordena 'base' de menor a major amb .sort() (modifica l'original)
-console.log("8a. sort (Mutant) -> retorn:", base.sort((a,b) => a - b), "| Original modificat:", base);
+console.log("8a. sort (Mutant) -> retorn:", base.sort((a, b) => a - b), "| Original modificat:", base);
 
 // 8b. Immutable: Ordena una còpia de major a menor amb .toSorted() sense alterar 'base'
-let newBase = base.toSorted((a,b) => b - a);
-console.log("8b. toSorted (Immutable) -> retorn:", newBase, "| Original intacte:", base);
+let novaBase = base.toSorted((a, b) => b - a);
+console.log("8b. toSorted (Immutable) -> retorn:", novaBase, "| Original intacte:", base);
 
 
 // --- B. Invertir ---
 // 9a. Mutant: Inverteix 'base' amb .reverse() (modifica l'original)
-//console.log("9a. reverse (Mutant) -> retorn:", /* ESCRIU REVERSE AQUÍ */, "| Original modificat:", base);
+console.log("9a. reverse (Mutant) -> retorn:", base.reverse(), "| Original modificat:", base);
 
 // 9b. Immutable: Inverteix de manera immutable amb .toReversed()
-//console.log("9b. toReversed (Immutable) -> retorn:", /* ESCRIU TOREVERSED AQUÍ */, "| Original intacte:", base);
+let baseReversed = base.toReversed();
+console.log("9b. toReversed (Immutable) -> retorn:", baseReversed, "| Original intacte:", base);
 
 // --- C. Canviar un element per índex ---
 // 10a. Mutant: Canvia l'element a l'índex 1 pel valor 99 fent assignació directa (base[1] = 99)
-/* ESCRIU L'ASSIGNACIÓ DIRECTA AQUÍ */;
-//console.log("10a. Assignació directa (Mutant) -> Original modificat:", base);
+base[1] = 99;
+console.log("10a. Assignació directa (Mutant) -> Original modificat:", base);
 
 // 10b. Immutable: Canvia l'element a l meitat / índex 1 amb .with(1, 99)
-//console.log("10b. with (Immutable) -> retorn:", /* ESCRIU WITH AQUÍ */, "| Original intacte:", base);
+console.log("10b. with (Immutable) -> retorn:", base.with(1, 99), "| Original intacte:", base);
 
 // --- D. Eliminar / Inserir per índex ---
 // 11a. Mutant: Elimina 1 element a l'índex 2 amb .splice(2, 1)
-//console.log("11a. splice (Mutant) -> esborrats:", /* ESCRIU SPLICE AQUÍ */, "| Original modificat:", base);
+console.log("11a. splice (Mutant) -> esborrats:", base.with(2, 1), "| Original modificat:", base);
 
 // 11b. Immutable: Elimina 1 element a l'índex 2 amb .toSpliced(2, 1)
-//console.log("11b. toSpliced (Immutable) -> retorn:", /* ESCRIU TOSPLICED AQUÍ */, "| Original intacte:", base);
+console.log("11b. toSpliced (Immutable) -> retorn:", base.toSpliced(2, 1), "| Original intacte:", base);
 
 
 // ==========================================
@@ -97,67 +98,75 @@ console.log("8b. toSorted (Immutable) -> retorn:", newBase, "| Original intacte:
 let noms = ["Anna", "Bernat", "Carla"];
 
 // 12. forEach simple: Imprimeix cada nom en una sola línia
-/* ESCRIU EL FOREACH SIMPLE AQUÍ */;
+noms.forEach(nom => console.log(nom));
 
 // 13. forEach amb índex: Imprimeix "Índex [idx]: [nom]" en una sola línia
-/* ESCRIU EL FOREACH AMB ÍNDEX AQUÍ */;
+noms.forEach((nom, idx) => console.log(`Índex ${idx}: ${nom}`));;
 
 // 14. for...of: Itera sobre els VALORS de 'noms' en una sola línia
-/* ESCRIU EL BUCLE FOR...OF AQUÍ */;
+for (let nom of noms) {
+  console.log(nom);
+};
 
 // 15. for...in: Itera sobre les CLAUS / ÍNDEXS de 'noms' en una sola línia
-/* ESCRIU EL BUCLE FOR...IN AQUÍ */;
+for (let idx in noms) {
+  console.log(idx);
+};
 
 
 // ==========================================
 // BLOC 5: PROGRAMACIÓ FUNCIONAL (MAP, FILTER, REDUCE, CERCA)
 // ==========================================
-//console.log("\n--- BLOC 5: Programació Funcional i Cerca ---");
+console.log("\n--- BLOC 5: Programació Funcional i Cerca ---");
 
 // 16. map: Genera un array només amb els noms dels productes
-//console.log("16. map (noms):", /* ESCRIU MAP AQUÍ */);
+console.log("16. map (noms):", productes.map(p => p.nom));
 
 // 17. map compost: Genera un array d'objectes { nom, preuIva } amb preu * 1.21 amb 2 decimals (.toFixed(2))
-//console.log("17. map (+IVA):", /* ESCRIU MAP AQUÍ */);
+console.log("17. map (+IVA):", productes.map(p => ({ nom: p.nom, preuIva: (p.preu * 1.21).toFixed(2) })));
 
 // 18. filter compost: Filtra productes de la categoria "Electrònica" AMB stock > 0
-//console.log("18. filter (Electrònica en stock):", /* ESCRIU FILTER AQUÍ */);
+console.log("18. filter (Electrònica en stock):", productes.filter(p => p.categoria === "Electrònica" && p.stock > 0));
 
 // 19. reduce: Calcula el valor total de tot l'inventari sumant (preu * stock)
-//console.log("19. reduce (total valor):", /* ESCRIU REDUCE AQUÍ */);
+console.log("19. reduce (total valor):", productes.reduce((acc, p) => acc + (p.preu * p.stock), 0));
 
 // 20. reduce: Agrupa productes per categoria -> { Electrònica: [...], Roba: [...] }
-//console.log("20. reduce (agrupar per categoria):", /* ESCRIU REDUCE AQUÍ */);
+console.log("20. reduce (agrupar per categoria):", productes.reduce((acc, p) => {
+  if (!acc[p.categoria]) acc[p.categoria] = [];
+  acc[p.categoria].push(p);
+  return acc;
+}, {}));
 
 // 21. findIndex: Troba l'índex del primer producte sense stock (stock === 0)
-//console.log("21. findIndex (sense stock):", /* ESCRIU FINDINDEX AQUÍ */);
+console.log("21. findIndex (sense stock):", productes.findIndex(p => p.stock === 0));
 
 // 22. findLastIndex: Troba la DARRERA posició (índex) d'un producte de "Electrònica"
-//console.log("22. findLastIndex (últim d'Electrònica):", /* ESCRIU FINDLASTINDEX AQUÍ */);
+console.log("22. findLastIndex (últim d'Electrònica):", productes.findLastIndex(p => p.categoria === "Electrònica"));
 
 // 23. flatMap: Extreu totes les valoracions jueves en un sol array d'un nivell
-//console.log("23. flatMap (totes les valoracions):", /* ESCRIU FLATMAP AQUÍ */);
+console.log("23. flatMap (totes les valoracions):", productes.flatMap(p => p.valoracions));
 
 
 // ==========================================
 // BLOC 6: COL·LECCIONS MAP I SET
 // ==========================================
-//console.log("\n--- BLOC 6: Comandes d'una línia amb Map i Set ---");
+console.log("\n--- BLOC 6: Comandes d'una línia amb Map i Set ---");
 
 // 24. Set: Elimina duplicats de 'etiquetes' convertint el Set directament a Array ([...new Set(...)])
-//console.log("24. Set (eliminar duplicats):", /* ESCRIU AQUÍ LA COMANDA */);
+console.log("24. Set (eliminar duplicats):", /* ESCRIU AQUÍ LA COMANDA */);
 
 let conjunt = new Set([1, 2, 3]);
 let mapa = new Map([["usr_1", "Joan"], ["usr_2", "Marta"]]);
 
 // 25. Set: Afegeix el valor 4 a 'conjunt' i comprova si existeix en la mateixa comanda (.add(4).has(4))
-//console.log("25. Set (add + has):", /* ESCRIU AQUÍ LA COMANDA */);
+console.log("25. Set (add + has):", /* ESCRIU AQUÍ LA COMANDA */);
 
 // 26. Map: Afegeix la clau "usr_3" amb valor "Albert" i obtén el valor de "usr_3" en la mateixa comanda (.set(...).get(...))
-//console.log("26. Map (set + get):", /* ESCRIU AQUÍ LA COMANDA */);
+console.log("26. Map (set + get):", /* ESCRIU AQUÍ LA COMANDA */);
 
 // 27. Map: Converteix totes les claus de 'mapa' a un Array utilitzant Array.from()
-//console.log("27. Map (Array de claus):", /* ESCRIU AQUÍ LA COMANDA */);
+console.log("27. Map (Array de claus):", /* ESCRIU AQUÍ LA COMANDA */);
 
 // 28. Map: Itera en una sola línia amb .forEach i mostra per consola `Clau: ${k} -> Valor: ${v}`
 /* ESCRIU EL MAP.FOREACH D'UNA SOLA LÍNIA AQUÍ */;
