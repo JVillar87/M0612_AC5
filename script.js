@@ -160,22 +160,22 @@ let conjunt = new Set([1, 2, 3]);
 let mapa = new Map([["usr_1", "Joan"], ["usr_2", "Marta"]]);
 
 // 25. Set: Afegeix el valor 4 a 'conjunt' i comprova si existeix en la mateixa comanda (.add(4).has(4))
-console.log("25. Set (add + has):", /* ESCRIU AQUÍ LA COMANDA */);
+console.log("25. Set (add + has):", conjunt.add(4).has(4));
 
 // 26. Map: Afegeix la clau "usr_3" amb valor "Albert" i obtén el valor de "usr_3" en la mateixa comanda (.set(...).get(...))
-console.log("26. Map (set + get):", /* ESCRIU AQUÍ LA COMANDA */);
+console.log("26. Map (set + get):", mapa.set("usr_3", "Albert").get("usr_3"));
 
 // 27. Map: Converteix totes les claus de 'mapa' a un Array utilitzant Array.from()
-console.log("27. Map (Array de claus):", /* ESCRIU AQUÍ LA COMANDA */);
+console.log("27. Map (Array de claus):", Array.from(mapa.keys()));
 
 // 28. Map: Itera en una sola línia amb .forEach i mostra per consola `Clau: ${k} -> Valor: ${v}`
-/* ESCRIU EL MAP.FOREACH D'UNA SOLA LÍNIA AQUÍ */;
+mapa.forEach((v, k) => console.log(`Clau: ${k} -> Valor: ${v}`));
 
 
 // ==========================================
 // BLOC 7: DOM - LLISTES VIVES (HTMLCollection) VS ESTÀTIQUES (NodeList)
 // ==========================================
-//console.log("\n--- BLOC 7: DOM - Llistes Vives vs Estàtiques ---");
+console.log("\n--- BLOC 7: DOM - Llistes Vives vs Estàtiques ---");
 
 // Preparem un element en memòria per provar el DOM
 let contenidor = document.createElement("div");
@@ -187,7 +187,7 @@ let colViva = contenidor.getElementsByClassName("item");
 // B. NodeList (querySelectorAll) -> Llista ESTÀTICA (Static)
 let colEstatica = contenidor.querySelectorAll(".item");
 
-//console.log("29a. Abans d'afegir element -> HTMLCollection (Viva):", colViva.length, "| NodeList (Estàtica):", colEstatica.length);
+console.log("29a. Abans d'afegir element -> HTMLCollection (Viva):", colViva.length, "| NodeList (Estàtica):", colEstatica.length);
 
 // Inserim dinàmicament un nou element 'span' amb classe 'item' a 'contenidor'
 let nouItem = document.createElement("span");
@@ -196,12 +196,12 @@ nouItem.textContent = "C";
 contenidor.appendChild(nouItem);
 
 // 29b. Comprova les longituds (.length) de colViva i colEstatica després d'afegir l'element al DOM
-//console.log("29b. Després d'afegir element -> HTMLCollection (Viva):", /* LONGITUD COLVIVA */, "| NodeList (Estàtica):", /* LONGITUD COLESTATICA */);
+console.log("29b. Després d'afegir element -> HTMLCollection (Viva):", colViva.length, "| NodeList (Estàtica):", colEstatica.length);
 
 // 30. Converteix la llista viva 'colViva' a un Array real amb Array.from() i extreu el textContent de cada element amb .map()
-//console.log("30. Array real des de HTMLCollection ->", /* ESCRIU LA COMANDA D'UNA LÍNIA AQUÍ */);
+console.log("30. Array real des de HTMLCollection ->", Array.from(colViva).map(el => el.textContent));
 
-/*
+
 // ==========================================
 // BLOC 8: PER QUÈ FALLEN AQUESTES COMANDES? (ERRORS HABITUALS)
 // ==========================================
@@ -210,10 +210,14 @@ console.log("\n--- BLOC 8: Per què fallen aquestes comandes? ---");
 // Error 1: Comparar arrays amb ===
 console.log("Error 1:", [1, 2] === [1, 2]); 
 // PER QUÈ RETORNA FALSE? 
+/* El === no compara el contingut anterior de l'Array. 
+En aquest cas son dos arrays diferents, per lo que son dos referències.*/
 
 // Error 2: Utilitzar typeof per detectar si és un Array
 console.log("Error 2:", typeof [1, 2]); 
 // PER QUÈ RETORNA "object"? 
+/* En aquest cas necessitariem un array, ja que typeof indica objecte genèric.
+A més em de verificar que  sigui realment array amb Array.isarray()*/
 
 // Error 3: Intentar usar mètodes d'Array (.map) directament sobre una HTMLCollection
 try {
@@ -222,20 +226,25 @@ try {
   console.log("Error 3:", e.message);
 }
 // PER QUÈ FALLA? 
+/*Per què HTMLCollection es un NodeList que no té mètodes funcionals. 
+Hauriem de convertir-lo abans en un array real.*/
 
 // Error 4: Utilitzar delete en un array per eliminar un element
 let llistaDelete = [10, 20, 30];
 delete llistaDelete[1];
 console.log("Error 4:", llistaDelete, "| Length:", llistaDelete.length);
 // PER QUÈ NO FA EL QUE S'ESPERA? 
+/* Perque tot i que em eliminat la posició, l'index continua i es converteix en un buit. */
 
 // Error 5: Retorn d'objecte literal en funció fletxa de map sense parèntesis
 console.log("Error 5:", [1, 2].map(n => { val: n }));
 // PER QUÈ RETORNA [undefined, undefined]? 
+/* Falta embolcallar l'objecte entre parèntesis. */
 
 // Error 6: Executar .sort() en números sense funció de comparació
 console.log("Error 6:", [5, 13, 1, 22, 4].sort());
 // PER QUÈ RETORNA [1, 13, 22, 4, 5]? 
+/* Per què conveteix els elements en strings i ordena alfabèticament. */
 
 // Error 7: Intentar fer 'for...of' sobre un Objecte literal
 try {
@@ -244,28 +253,34 @@ try {
   console.log("Error 7:", e.message);
 }
 // PER QUÈ FALLA? 
+/*For.. of només funciona amb iterables com strings, maps o arrays. */
 
 // Error 8: Passar un valor inicial incorrecte o no passar-ne cap a 'reduce' amb arrays d'objectes
 console.log("Error 8:", productes.reduce((acc, p) => acc + p.preu));
 // PER QUÈ RETORNA "[object Object]18453280"? 
+
 
 // Error 9: Confondre .push() guardant la variable resultat
 let llistaPush = [1, 2, 3];
 llistaPush = llistaPush.push(4);
 console.log("Error 9:", llistaPush);
 // PER QUÈ SOBREESCRIU A 4? 
+/* Per què el mètode retorna un número total d'elements no l'array modificat. */
 
 // Error 10: Intentar usar .includes() sobre un array d'objectes cercant per contingut
 console.log("Error 10:", productes.includes({ id: 1, nom: "Portàtil Pro", categoria: "Electrònica", preu: 950, stock: 4, valoracions: [5, 4, 5] }));
 // PER QUÈ RETORNA FALSE? 
 
+
 // Error 11: Intentar accés per índex negatiu directe amb claudàtors
 console.log("Error 11:", preus[-1]);
 // PER QUÈ RETORNA UNDEFINED? 
+/* Per què el claudators [] no accepten index negatiu. Hauriem de fer servir parentesis () */
 
 // Error 12: Usar forEach intentant interrompre el bucle amb 'break' o 'return'
 [1, 2, 3, 4].forEach(n => {
   if (n === 2) return; // Intentem fer un "continue" o sortir
   console.log("Error 12 - forEach element:", n);
 });
-// PER QUÈ NO FA ALLÒ ESPERAT? */
+// PER QUÈ NO FA ALLÒ ESPERAT? 
+/* Per què el return ens fa sortir de la iteració però no atura/trenca el recorregut. */
